@@ -1,0 +1,38 @@
+.SearchForm {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: var(--background);
+}
+
+.SearchForm:after {
+  content: "";
+  height: 3px;
+  width: 100%;
+  background: var(--border-npm-color);
+  position: absolute;
+  bottom: 0;
+}
+
+.SearchForm button {
+  background: var(--button-bg);
+  color: var(--button-color);
+  border: 0;
+  height: 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+.SearchForm input {
+  height: 2rem;
+  padding: 0 0.5rem;
+  margin-right: 0.5rem;
+  font-family: var(--sans);
+}
