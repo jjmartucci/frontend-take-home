@@ -7,8 +7,8 @@
   padding: 1rem 0;
   display: flex;
   justify-content: center;
-  align-items: center;
-  background-image: var(--background);
+
+  background: var(--background-color);
 }
 
 .SearchForm:after {
@@ -20,19 +20,26 @@
   bottom: 0;
 }
 
+.SearchForm__Form {
+  width: 80%;
+  display: grid;
+  grid-template-columns: 1fr 100px;
+}
+
 .SearchForm button {
   background: var(--button-bg);
   color: var(--button-color);
   border: 0;
-  height: 2rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
+  height: 2.25rem;
   font-size: 1rem;
+  line-height: 1rem;
 }
 
 .SearchForm input {
+  border-radius: 0;
   height: 2rem;
+  line-height: 1rem;
   padding: 0 0.5rem;
-  margin-right: 0.5rem;
+  font-size: 1rem;
   font-family: var(--sans);
 }

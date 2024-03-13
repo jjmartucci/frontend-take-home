@@ -1,20 +1,49 @@
 import { createContext, useContext, useReducer } from "react";
+import { Result } from "../components/ResultsList/ResultsList";
 
-export const SearchContext = createContext(null);
-export const SearchDispatchContext = createContext(null);
+type SearchState = {
+  searchQuery: string;
+  results: Array<Result>;
+  isLoading: boolean;
+  isError: boolean;
+  isIntentionalFailure: boolean;
+};
 
-export const initialSearchState = {
+type SearchQueryAction = {
+  type: "searchQuery";
+  value: string;
+};
+
+type ResultsAction = {
+  type: "results";
+  value: Result[];
+};
+
+type Action = { type: "loading" | "error" | "toggleIntentionalFailure" };
+
+type DipatchActions = SearchQueryAction | ResultsAction | Action;
+
+type SearchProviderProps = {
+  children: React.ReactNode;
+};
+
+export const SearchContext = createContext<SearchState>({} as SearchState);
+export const SearchDispatchContext = createContext(
+  {} as React.Dispatch<DipatchActions>,
+);
+
+export const initialSearchState: SearchState = {
   searchQuery: "",
   results: [],
   isLoading: false,
   isError: false,
+  isIntentionalFailure: false,
 };
 
-type Props = {
-  children: React.ReactNode;
-};
-
-function searchReducer(searchState, action) {
+function searchReducer(
+  searchState: SearchState,
+  action: DipatchActions,
+): SearchState {
   switch (action.type) {
     case "loading": {
       return { ...searchState, isLoading: true };
@@ -23,15 +52,29 @@ function searchReducer(searchState, action) {
       return { ...searchState, searchQuery: action.value };
     }
     case "results": {
-      return { ...searchState, results: action.value, isLoading: false };
+      return {
+        ...searchState,
+        results: action.value,
+        isError: false,
+        isLoading: false,
+      };
     }
     case "error": {
       return { ...searchState, isError: true, isLoading: false };
     }
+    case "toggleIntentionalFailure": {
+      return {
+        ...searchState,
+        isIntentionalFailure: !searchState.isIntentionalFailure,
+      };
+    }
+    default: {
+      return searchState;
+    }
   }
 }
 
-export const SearchProvider = ({ children }: Props) => {
+export const SearchProvider = ({ children }: SearchProviderProps) => {
   const [search, dispatch] = useReducer(searchReducer, initialSearchState);
 
   return (
@@ -43,5 +86,5 @@ export const SearchProvider = ({ children }: Props) => {
   );
 };
 
-export const useSearch = () => useContext(SearchContext);
+export const useSearch = () => useContext<SearchState>(SearchContext);
 export const useSearchDispatch = () => useContext(SearchDispatchContext);

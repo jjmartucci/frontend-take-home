@@ -1,3 +1,13 @@
+.ResultsList {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  @media screen and (min-width: 800px) {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1rem;
+  }
+}
 .ResultsList__Item {
   border-bottom: 1px solid var(--border-basic-color);
 }

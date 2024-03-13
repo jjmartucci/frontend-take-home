@@ -1,7 +1,8 @@
 import { useSearch } from "../../state/Search";
 import styles from "./ResultsList.module.css";
+import Markdown from "react-markdown";
 
-type Result = {
+export type Result = {
   links: {
     bugs: string;
     homepage: string;
@@ -21,13 +22,15 @@ type Result = {
 const ResultsList = () => {
   const { results } = useSearch();
   return (
-    <ul>
+    <ul className={styles.ResultsList}>
       {results.map((result: Result) => (
         <li key={result.name} className={styles.ResultsList__Item}>
           <a href={result.links.npm}>
             <h3>{result.name}</h3>
           </a>
-          <p>{result.description}</p>
+          <p>
+            <Markdown>{result.description}</Markdown>
+          </p>
         </li>
       ))}
     </ul>

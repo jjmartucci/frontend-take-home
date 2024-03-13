@@ -1,0 +1,9 @@
+.FailButton {
+  position: fixed;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.8rem;
+  background: var(--background-color);
+  border: 1px solid var(--border-basic-color);
+  padding: 0.25rem;
+}
